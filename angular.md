@@ -39,3 +39,9 @@ npm install angular
 ## ng-cloak
 防止闪烁
 ## ng-click ng-事件名
+
+## 安装bootstrap
+在当前文件夹下安装
+```
+npm install bootstrap
+```

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<table class="table table-bordered" data-ng-controller="cartCtrl">
+    <tr>
+        <th><input type="checkbox">全选</th>
+        <th>商品</th>
+        <th>数量</th>
+        <th>单价</th>
+        <th>小计</th>
+        <th>操作</th>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('cartCtrl',function ($scope) {
+        $scope.carts = [
+            {name:'iphone 7 plus',price:7000,count:1,isSelected:true},
+            {name:'iphone 6 plus',price:3666,count:1,isSelected:true},
+            {name:'iphone 5s',price:2000,count:1,isSelected:true},
+            {name:'iphone 4',price:50,count:1,isSelected:true},
+        ]
+    })
+</script>
+</body>
+</html>
