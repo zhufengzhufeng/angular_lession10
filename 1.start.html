@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+ng-model绑定当前作用域上的变量，如果没有，则在当前作用域下声明
+输入的内容发生变化导致作用域的内容变化 (视图影响数据)
+-->
+<input type="text" ng-model="name">
+<!--取值表达式，从作用域上 将值取到页面上 (把数据绑定的页面上)-->
+{{name}}
+<!--使用angular需要引入angularjs  angular-->
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    //当你引入angularjs后 会送你一个angular对象
+    //设置让angular自行启动,在html标签上增加ng-app属性，window，会产生一个根作用域
+    console.log(angular);
+</script>
+</body>
+</html>

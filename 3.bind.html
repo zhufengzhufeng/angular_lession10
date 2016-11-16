@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" ng-model="name">
+<input type="text" ng-model="age">
+<!--<span ng-bind="name"></span>
+<span ng-bind="age"></span>-->
+<div ng-cloak>
+    {{name}}123{{age}}
+</div>
+<style>
+    [ng-cloak]{
+        display: none;
+    }
+</style>
+<!--ng-bind可以解决闪烁问题，当数据解析完成后，将内容插入html到span中-->
+<!--标签内不能写任何代码，会将代码替换掉导致页面闪烁-->
+<!--ng-cloak 专门处理防止代码闪烁问题,等待angular编译变量在显示出来
+    1.先将ng-cloak的属性选择出来，让其隐藏，当angular加载完后会移除掉ng-cloak属性
+
+-->
+<script src="node_modules/angular/angular.js"></script>
+</body>
+</html>
