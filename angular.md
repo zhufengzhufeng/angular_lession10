@@ -25,3 +25,17 @@ npm install angular
 ```
 
 > 安装后会在当前目录下生成一个node_modules文件夹
+
+## ng-app
+启动angular
+## ng-model
+实现双向绑定
+## ng-repeat
+遍历
+## ng-controller
+控制器
+## ng-bind
+绑定
+## ng-cloak
+防止闪烁
+## ng-click ng-事件名

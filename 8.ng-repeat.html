@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div data-ng-controller="myCtrl">
+    <ul>
+        <li data-ng-repeat="(key,val) in obj">{{key}}{{$index}}{{val}}</li>
+    </ul>
+    <!--{{fn()}}-->
+    <button ng-click="fn()">点我</button>
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.obj = {
+            name:'zfpx',
+            age:8,
+            address:'回龙观'
+        };
+        $scope.fn = function () { //脏值检查
+            alert(1);
+            return 100;
+        };
+        //$scope就是我们说的viewModel 视图和数据的桥梁
+        //sort pop shift unshift push slice splice forEach map join concat reverse indexof lastindexof
+    });
+</script>
+</body>
+</html>

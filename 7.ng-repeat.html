@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  ng-app="appModule">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<div ng-controller="myCtrl">'
+    <ul>
+                <!--当前这项的key值和value属性-->
+        <li ng-repeat="(parent,val) in arrs">
+            {{val.name}}
+            <p data-ng-repeat="t in val.type">
+                <!--在自遍历中拿到父亲的索引，父亲声明一个索引-->
+                {{t}}
+                自己的索引{{$index}}
+                父亲的索引 {{parent}}
+            </p>
+            {{$index}} 奇数{{$odd}} 偶数{{$even}} 最后{{$last}} 第一{{$first}} 中间{{$middle}}
+        </li>
+    </ul>
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',['$scope',function ($scope) {
+//        $scope.arrs = [{name:'苹果',type:['红富士','果光']}];
+        $scope.arrs = [{name:'苹果',type:['红富士','果光']},{name:'苹果',type:['黄元帅']},{name:'橘子',type:['砂糖橘','普通橘子','绿色的橘子']}];
+        //ng-repeat用法，想让谁循环多次就写在谁的身上
+        //每一项的值 in 所有数
+        //遍历时 每一次遍历都会产生一个作用域
+        //使用数组类型的需要加track by $index,根据索引来进行遍历
+    }]);
+</script>
 </body>
 </html>

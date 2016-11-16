@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div onclick="fn.call(this)">你好漂亮</div>
+<script>
+    var fn = function () {
+        console.log(this);
+        alert(1);
+    }
+</script>
+</body>
+</html>
