@@ -8,15 +8,26 @@
 <body>
 <table class="table table-bordered" data-ng-controller="cartCtrl">
     <tr>
-        <th><input type="checkbox">全选</th>
+        <th><input type="checkbox" ng-model="flag" ng-click="selectAll()">全选</th>
         <th>商品</th>
         <th>数量</th>
         <th>单价</th>
         <th>小计</th>
         <th>操作</th>
     </tr>
+    <tr ng-repeat="product in carts">
+        <td><input type="checkbox" ng-model="product.isSelected"></td>
+        <td>{{product.name}}</td>
+        <td><input type="text" ng-model="product.count"></td>
+        <td>{{product.price}}</td>
+        <td>{{product.price*product.count}}</td>
+        <td><button>删除</button></td>
+    </tr>
     <tr>
-        <td></td>
+        <td colspan="6">
+            总价 {{sum()}}
+            <!--只要页面上有一个数据发生变化，sum方法就会不停的执行-->
+        </td>
     </tr>
 </table>
 <script src="node_modules/angular/angular.js"></script>
@@ -25,10 +36,27 @@
     app.controller('cartCtrl',function ($scope) {
         $scope.carts = [
             {name:'iphone 7 plus',price:7000,count:1,isSelected:true},
-            {name:'iphone 6 plus',price:3666,count:1,isSelected:true},
+            {name:'iphone 6 plus',price:3666,count:1,isSelected:false},
             {name:'iphone 5s',price:2000,count:1,isSelected:true},
             {name:'iphone 4',price:50,count:1,isSelected:true},
-        ]
+        ];
+        //测试当前点击状态
+        $scope.selectAll = function () {
+            alert($scope.flag)
+        };
+        //求和的方法 他不是点击触发 而是不停的触发
+        $scope.sum = function () {
+            var total = 0;
+            $scope.carts.forEach(function (item) {
+                total += item.price*item.count;
+            });
+            return total;
+        };
+        // 删除功能，点击删除按钮删除当前的这条数据 filter
+        // 全选全不选  点击全选按钮 如果按钮为true 全为true 或者全为false
+        // 假设法 1.默认它为true 如果有一个为false 就为false 全为true才是true
+        //       2.find方法
+
     })
 </script>
 </body>
