@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="firstCtrl">111 {{name}}</div>
+<div>222 {{name}}</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    //ng-app 指定模块来启动angularjs
+    //一切从模块开始
+    //声明模块 appModule模块的名字 依赖的模块
+    var app = angular.module('appModule',[]);
+    //通过模块来创建控制器
+    //控制器的名字 控制器的声明,当你声明一个控制器后，会送你一个$scope
+    app.controller('firstCtrl',function ($scope) {
+        //送了一个作用域{{name}}当前作用域上的值
+        $scope['name'] = 'zfpx';
+    });
+    //alert(app==angular.module('appModule'));
+</script>
+</body>
+</html>

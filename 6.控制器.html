@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{name}}
+<div ng-controller="firstCtrl">
+    {{name}}
+    <div ng-controller="secondCtrl">
+        {{name}}
+    </div>
+</div>
+
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app=angular.module("appModule",[]);
+    //$rootScope根作用域 $scope当前控制器的作用域
+    app.controller("firstCtrl",['$rootScope','$scope',function (a,b) {
+        //通过数组的个数映射到最后一个函数中的参数，字符串不会被压缩
+        //a.name = 'hello';
+        //b.name = 'zfpx';
+        //子能继承父级作用域 ,自己家里有的在自己家里找，一直向上找
+    }]);
+    app.controller('secondCtrl',['$scope',function ($s) {
+       $s.name = 'world';
+    }]);
+    //默认控制器是平级的，可以进行控制器的嵌套（html标签的嵌套）
+
+    //1.特点 与dom标签平行
+    //2.不能操作dom 唯一操做dom地方在link函数中
+    //3.而且不要复用控制器中的方法，，，
+
+    //数组对象，在页面中遍历数组和对象
+</script>
+</body>
+</html>
