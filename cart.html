@@ -50,6 +50,7 @@
             </select>-->
             <!--哪个值作为as程序员看到的值 哪个值为for客户端看到的值 每一项 in 所有-->
             <select ng-model="name2" ng-options="dis.val as dis.name for dis in discount"></select>
+            折后价格{{sum()*name2/10}}
             <!--select input textarea radio checkbox  ng-model-->
         </td>
     </tr>

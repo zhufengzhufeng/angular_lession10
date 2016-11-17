@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--标签 element  E-->
+<hello></hello>
+<!--属性 attribute A-->
+<div hello></div>
+<!--样式 class C-->
+<div class="hello"></div>
+<!--注释 comment M-->
+<!-- directive:hello -->
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule', []);
+    //指令 ：赋予一定的意义 angular内置的指令叫做ng-开头的
+    //自定义指令：名字不能以ng开头
+    //指令的分类 修饰：装饰型指令
+    //          增加组件 组件式指令 变成一堆代码
+    //指令不需要依赖于控制器
+    app.directive('hello', function () {
+        return {
+            restrict: 'EACM', //限制指令的生效范围,默认使用范围为EA
+            template: `<div>
+                        <h1>你好啊 angular baby</h1>
+                        <div>你好</div>
+                      </div>`,
+            //模板为了不出错，有且只有一个根节点
+            replace: true,//替换掉原有指令
+        }
+    });
+    //指令默认会产生作用域吗？ 指令默认是不会产生作用域的
+</script>
+</body>
+</html>
