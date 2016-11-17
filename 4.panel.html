@@ -17,19 +17,21 @@
 </div>
 <script src="node_modules/angular/angular.js"></script>
 <script>
-    var app = angular.module('appModule',[]);
-    app.directive('panel',function () {
+    var app = angular.module('appModule', []);
+    app.directive('panel', function () {
         return {
-            restrict:'E',
-            transclude:true,//将指令中的内容保留
-            templateUrl:'tmpl/panel.html',//通过xhr对象将内容拿到当前页面
-            link:function (scope,ele,attrs) { //将scope转换成当前指令自己的作用域
-                scope.title = attrs.title;//代表每一个面板的标题
-                //console.log(attrs);//当前指令的属性的集合
-            },
-            scope:{} //true和{} 是创造作用域的 ，给当前指令添加私有作用域
+            restrict: 'E',
+                    transclude: true,
+                    templateUrl: 'tmpl/panel.html',
+                    //和link函数中scope永远是同一个
+                    scope: {
+                //scope.title = attrs.title;
+                t: '@title' //$scope.t = '标题'
+                //名字相同时可以去掉@符号后面的
+            }
         }
     });
+    //指令和控制器之间的交互
 </script>
 </body>
 </html>
