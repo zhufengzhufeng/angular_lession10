@@ -45,9 +45,11 @@
             总价 {{sum()}}
             <button ng-click="delAll()">删除选中商品</button>
             <!--只要页面上有一个数据发生变化，sum方法就会不停的执行-->
-            <select ng-model="name1">
+            <!--<select ng-model="name1">
                 <option value="{{dis.val}}" ng-repeat="dis in discount">{{dis.name}}</option>
-            </select>
+            </select>-->
+            <!--哪个值作为as程序员看到的值 哪个值为for客户端看到的值 每一项 in 所有-->
+            <select ng-model="name2" ng-options="dis.val as dis.name for dis in discount"></select>
             <!--select input textarea radio checkbox  ng-model-->
         </td>
     </tr>
@@ -57,6 +59,7 @@
     var app = angular.module('appModule',[]);
     app.controller('cartCtrl',function ($scope) {
         $scope.name1 = '3'; //默认值需要为字符串类型
+        $scope.name2 = 3;  //如果用as for in的方式需要绑定的是数字
         $scope.carts = [
             {name:'iphone 7 plus',price:7000,count:1,isSelected:true},
             {name:'iphone 6 plus',price:3666,count:1,isSelected:true},
