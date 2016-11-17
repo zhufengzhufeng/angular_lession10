@@ -7,14 +7,21 @@
 </head>
 <body>
 <div class="container" data-ng-controller="myCtrl">
-    <panel t="biao">{{content}}</panel>
+    <panel t="biao" s="say()">{{content}}</panel>
+    <!--
+        控制器将数据负责渲染到页面上，但是页面有很多写好的指令，是需要数据的。把数据通过属性props 传入我们的指令中
+    -->
 </div>
 <script src="node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[])
     app.controller('myCtrl',['$scope',function ($scope) {
-       $scope.biao = '标题1';
-       $scope.content = '标题1里的内容';
+       //变量 字符串 函数
+        $scope.biao = '标题1';
+        $scope.content = '标题1里的内容';
+        $scope.say = function () {
+            console.log(1);
+        }
     }]);
     app.directive('panel',function () {
         return {
@@ -23,8 +30,9 @@
             templateUrl:'tmpl/panel.html',
             transclude:true,
             scope:{
-               // t:'@title' //$scope.t = '标题1' @符号取得是字符串
-               t:'='         //=符号取得是变量  $scope.t = scope.title
+             //t:'@title' //$scope.t = '标题1' @符号取得是字符串
+               t:'=',        //=符号取得是变量  $scope.t = scope.title
+               s:'&'
             } //封闭式，只能通过属性的传递来获取值
         }
     })
