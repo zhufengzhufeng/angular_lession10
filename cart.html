@@ -16,7 +16,7 @@
         <th>操作</th>
     </tr>
     <tr ng-repeat="product in carts">
-        <td><input type="checkbox" ng-model="product.isSelected"></td>
+        <td><input type="checkbox" ng-model="product.isSelected" ng-click="selectOne()"></td>
         <td>{{product.name}}</td>
         <td><input type="text" ng-model="product.count"></td>
         <td>{{product.price}}</td>
@@ -52,7 +52,19 @@
         ];
         //测试当前点击状态
         $scope.selectAll = function () {
-            alert($scope.flag)
+            //遍历每一个商品给isSelected赋值
+            $scope.carts.forEach(function (item) {
+                //如果为true 所有项目都为true
+                item.isSelected = $scope.flag;
+            });
+        };
+        //点击下面每一个checkbox时给予全选状态
+        $scope.selectOne = function () {
+            //find方法
+            var pro = $scope.carts.find(function (item) {
+                return !item.isSelected;//其中有一个商品为false
+            }); //找到了pro说明应该为非全选状态
+            $scope.flag = pro?false:true;
         };
         //求和的方法 他不是点击触发 而是不停的触发
         $scope.sum = function () {
