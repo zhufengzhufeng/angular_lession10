@@ -30,17 +30,17 @@
         return {
             restrict:'A',
             //操作dom
-            link:function (scope,element,attrs) {
+            link:function (scope,ele,attrs) { //形参可以改
                 //onmousedown onmousemove onmouseup
-                element.on('mousedown',function (e) {
+                ele.on('mousedown',function (e) {
                     //鼠标距离盒子的边缘 = 鼠标距离浏览器的距离 - 盒子距离浏览器的距离
                     var disX = e.pageX - this.offsetLeft;//this是原声对象
                     var disY = e.pageY - this.offsetTop;
                     angular.element(document).on('mousemove',function (e) {
-                        element.css({
+                        ele.css({
                             left:e.pageX-disX+'px', //当前鼠标距离浏览器的位置 - 鼠标距离盒子的边缘
                             top:e.pageY-disY+'px'
-                        })
+                        });
                     });
                     //当鼠标抬起时关闭掉事件
                     angular.element(document).on('mouseup',function () {
@@ -55,11 +55,11 @@
 
 
     //1.scope代表的是当前指令所在的作用域
-    //2.element当前指令元素（jq对象）
-    //element.css('border','1px solid red');
-    //element[0].style.border='1px solid red';
-    //console.log(angular.element()); //轻量级jq 选择使用jq
-    //angular.element(element[0]).css('border','1px solid red');
+    //2.ele当前指令元素（jq对象）
+    //ele.css('border','1px solid red');
+    //ele[0].style.border='1px solid red';
+    //console.log(angular.ele()); //轻量级jq 选择使用jq
+    //angular.ele(ele[0]).css('border','1px solid red');
     //3.当前指令上所有属性的集合
     //在link函数中操作dom元素，链接函数 作用域和视图的
 </script>

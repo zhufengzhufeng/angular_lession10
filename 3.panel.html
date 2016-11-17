@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<!--
+    面板分为三个部分 头 体 尾
+-->
+<div class="container">
+    <panel title="标题1">第一个面板</panel>
+    <panel title="标题2">第二个面板</panel>
+    <panel title="标题3">第三个面板</panel>
+    <!--弄三个盒子来装每个指令中夹着的内容-->
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('panel',function () {
+        return {
+            restrict:'E',
+            transclude:true,//将指令中的内容保留
+            templateUrl:'tmpl/panel.html',//通过xhr对象将内容拿到当前页面
+            link:function (scope,ele,attrs) { //将scope转换成当前指令自己的作用域
+                scope.title = attrs.title;//代表每一个面板的标题
+                //console.log(attrs);//当前指令的属性的集合
+            },
+            scope:{} //true和{} 是创造作用域的
+        }
+    })
+</script>
+</body>
+</html>

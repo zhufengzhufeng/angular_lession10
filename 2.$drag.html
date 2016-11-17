@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    div{
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        top:0;
+        left:0;
+    }
+    div+div{background: blue}
+    div+div+div{background: yellow}
+    div+div+div+div{background: green}
+</style>
+<div drag>hello</div>
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('drag',function () {
+        return {
+            restrict:'A',
+            link:function (scope,ele,attrs) {
+                ele.on('mousedown',function (e) {
+                    var disX = e.pageX - $(this).position().left;//this是原声对象
+                    var disY = e.pageY - $(this).position().top;
+                    $(document).on('mousemove',function (e) {
+                        $(ele).css({
+                            left:e.pageX-disX,
+                            top:e.pageY-disY
+                        });
+                    });
+                    $(document).on('mouseup',function () {
+                        $(document).off();
+                    });
+                    e.preventDefault();
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>
