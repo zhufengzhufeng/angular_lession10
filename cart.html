@@ -18,11 +18,18 @@
     <tr ng-repeat="product in carts">
         <td><input type="checkbox" ng-model="product.isSelected" ng-click="selectOne()"></td>
         <td>{{product.name}}</td>
-        <td><input type="text" ng-model="product.count"></td>
+        <td>
+            <button ng-click="product.count=product.count-1" ng-disabled="product.count<=1">-</button>
+            <!--ng-readonly="true"-->
+            <input type="text" ng-model="product.count" ng-readonly="true">
+            <button ng-click="product.count=product.count+1">+</button>
+        </td>
         <td>{{product.price}}</td>
         <td>{{product.price*product.count}}</td>
         <!--                      product代表当前点击的那一条数据-->
-        <td><button ng-click="del(product)" class="btn btn-danger btn-xs">删除</button></td>
+        <td><button ng-click="del(product)" class="btn btn-danger btn-xs">删除</button>
+
+        </td>
     </tr>
     <!--
         btn颜色 btn-success 成功绿色
@@ -36,7 +43,11 @@
     <tr>
         <td colspan="6">
             总价 {{sum()}}
+            <button ng-click="delAll()">删除选中商品</button>
             <!--只要页面上有一个数据发生变化，sum方法就会不停的执行-->
+            <select>
+                <option value=""></option>
+            </select>
         </td>
     </tr>
 </table>
@@ -46,7 +57,7 @@
     app.controller('cartCtrl',function ($scope) {
         $scope.carts = [
             {name:'iphone 7 plus',price:7000,count:1,isSelected:true},
-            {name:'iphone 6 plus',price:3666,count:1,isSelected:false},
+            {name:'iphone 6 plus',price:3666,count:1,isSelected:true},
             {name:'iphone 5s',price:2000,count:1,isSelected:true},
             {name:'iphone 4',price:50,count:1,isSelected:true},
         ];
@@ -59,6 +70,7 @@
             });
         };
         //点击下面每一个checkbox时给予全选状态
+
         $scope.selectOne = function () {
             //find方法
             var pro = $scope.carts.find(function (item) {
@@ -66,6 +78,7 @@
             }); //找到了pro说明应该为非全选状态
             $scope.flag = pro?false:true;
         };
+        $scope.selectOne(); //先触发一次判断
         //求和的方法 他不是点击触发 而是不停的触发
         $scope.sum = function () {
             var total = 0;
@@ -82,6 +95,17 @@
             });
             //filter不会导致原数组的变化
         };
+        //删除选中的
+        $scope.delAll = function () {
+            //要获取所有选中的，在去数组里删除
+            $scope.carts.forEach(function (item) {
+                if(item.isSelected){
+                    $scope.del(item);
+                }
+            });
+        };
+        //打折 [2,3,4]
+        $scope.discount = [{val:2,name:'二折'},{val:3,name:'三折'},{val:4,name:'四折'}];
     });
 
 
