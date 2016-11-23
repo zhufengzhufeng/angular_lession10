@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .background1{background: red;}
+        .background2{background: yellow;}
+        .size{font-size: 30px;}
+    </style>
+</head>
+<body ng-controller="myCtrl">
+<!--<div class="{{flag?'background1':'background2'}}">hello angular</div>-->
+<!--简单的判断 类样式-->
+<div ng-class="{true:'background1',false:'background2'}[flag]">hello angular</div>
+<div ng-class="{background1:true,background2:!flag,size:flag}" >hello angular</div>
+
+<!--行内样式-->
+<div ng-style="{fontSize:'40px',background:'yellowgreen',border:'5px dotted #f4f4f4'}" style="border:10px dashed #f1f1f1">hello angular</div>
+
+<!--ng-style和ng-class是绑定动态属性的可以和style/class共存但是优先级高于style/class-->
+<!--<ul>
+    <li ng-repeat="a in arr track by $index" ng-class="{true:'background1',false:'background2'}[$even]">{{a}}</li>
+</ul>-->
+<div class="background1 background2">hello angular</div>
+<script src="./public/js/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.flag =true;
+        $scope.arr = [1,2,3,4,5,6,7]
+    });
+</script>
+</body>
+</html>
