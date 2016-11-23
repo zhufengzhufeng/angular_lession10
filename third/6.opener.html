@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .title{width: 150px;height: 30px;line-height: 30px;background: red;}
+        .content{width: 150px;height: 150px;background: green;}
+    </style>
+</head>
+<body ng-controller="myCtrl">
+<div class="title" ng-click="flag=!flag">标题</div>
+<div class="content" ng-show="flag">内容</div>
+<script src="./public/js/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.flag = false;
+    });
+    //改成复用的组件，封装成指令
+</script>
+</body>
+</html>

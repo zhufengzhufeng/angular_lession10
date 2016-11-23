@@ -32,8 +32,9 @@
     });
     app.directive('loveCry',function () {
        return {
+           restrict:'EA',
            require:'girlMy', //指令的名字
-           link:function (scope,element,attrs,girlCtrl) {
+           link:function (s,e,a,girlCtrl) {
                girlCtrl.save('loveCry');
            }
        }

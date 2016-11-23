@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<girl-my>
+    <love-cry></love-cry>
+</girl-my>
+<!--<girl-my love-cry love-money>xxx</girl-my>-->
+<script src="./public/js/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('girlMy',function () {
+        return {
+            controller:function () {
+                this.aa = 1;
+            }
+        }
+    });
+    app.directive('loveCry',function () {
+       return {
+           require:'?^girlMy',
+           //先找自己的指令标签上，如果没有则报错
+           //？找不到就给一个null
+           //^ 先从当前找，当前找不到则向上级找，找不到报错
+           link:function (scope,element,attrs,gCtrl) {
+               console.log(gCtrl);
+               console.log(gCtrl.aa);
+           }
+       }
+    });
+</script>
+</body>
+</html>
