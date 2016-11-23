@@ -6,7 +6,7 @@
 </head>
 <body data-ng-controller="myCtrl">
 <input type="text" ng-model="name">
-<my-text name="name" s="say(hello)"></my-text>
+<my-text name="name" s="say(hello)">你好我是大牛</my-text>
 <script src="../node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
@@ -20,11 +20,13 @@
     app.directive('myText',function () {
         return {
             restrict:'E',
-            template:`<div>{{name}}</div>
-                          <input type="text" ng-model="n">
-                          <button ng-click="q({hello:n})"></button>
-                      `,
-            link:function () {},
+            transclude:true,//会产生独立作用域,配合ng-transclude使用
+            template:`
+                      <div>{{n}}</div>
+                      <input type="text" ng-model="n">
+                      <button ng-click="q({hello:n})"></button>
+                      <div><span ng-transclude></span>你好我是小牛</div>
+                     `,
             scope:{
                 q:'&s',
                 n:'=name' //一个是单向 一个是双向 是因为取到的是作用域上的变量，修改后会导致控制器上的变量改变刷新视图
