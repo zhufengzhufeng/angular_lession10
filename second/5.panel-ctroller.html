@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container" data-ng-controller="myCtrl">
-    <panel t="biao" s="say()">{{content}}</panel>
+    <panel t="biao" s="say(w,h)">{{content}}</panel>
     <!--
         控制器将数据负责渲染到页面上，但是页面有很多写好的指令，是需要数据的。把数据通过属性props 传入我们的指令中
     -->
@@ -19,8 +19,8 @@
        //变量 字符串 函数
         $scope.biao = '标题1';
         $scope.content = '标题1里的内容';
-        $scope.say = function () {
-            console.log(1);
+        $scope.say = function (who,h) {
+            console.log(who,h);
         }
     }]);
     app.directive('panel',function () {

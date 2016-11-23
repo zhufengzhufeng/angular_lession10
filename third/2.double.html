@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body data-ng-controller="myCtrl">
+<input type="text" ng-model="name">
+<my-text name="name" s="say(hello)"></my-text>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',['$scope',function ($scope) {
+        $scope.name = '123';
+        $scope.say = function (who) {
+            console.log(who);
+        }
+    }]);
+    //指令默认是不会拥有作用域的
+    app.directive('myText',function () {
+        return {
+            restrict:'E',
+            template:`<div>{{name}}</div>
+                          <input type="text" ng-model="n">
+                          <button ng-click="q({hello:n})"></button>
+                      `,
+            link:function () {},
+            scope:{
+                q:'&s',
+                n:'=name' //一个是单向 一个是双向 是因为取到的是作用域上的变量，修改后会导致控制器上的变量改变刷新视图
+                //=是双向取得是变量
+                //@是单向取得是字符串
+            }
+        }
+    });
+</script>
+</body>
+</html>

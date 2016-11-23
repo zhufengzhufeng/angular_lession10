@@ -17,10 +17,11 @@
     app.directive('myText',function () {
         return {
             restrict:'E',
-            template:'<div>{{name}}</div><input type="text" ng-model="name">',
+            template:'<div>{{name}}</div><input type="text" ng-model="n">',
             link:function () {},
             scope:{
-                name:'@'
+                //这是作用域中自己的n和name变量没有任何关系
+                n:'@name' //scope.n = 456 //只是声明的一个新值，和外界没有一点关系，单向流
             }
             //1.没有作用域
             //2.封闭式无法取到外界作用域上的值
