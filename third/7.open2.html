@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<team>
+    <open title="标题">内容</open>
+    <open title="标题">内容</open>
+    <open title="标题">内容</open>
+    <open title="标题">内容</open>
+    <open title="标题">内容</open>
+</team>
+<div class="clearfix"></div>
+<team>
+    <open title="标题">内容</open>
+    <open title="标题">内容</open>
+</team>
+<div class="clearfix"></div>
+<team>
+    <open title="标题">内容</open>
+    <open title="标题">内容</open>
+    <open title="标题">内容</open>
+    <open title="标题">内容</open>
+</team>
+<script src="./public/js/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('team',function () {
+        return {
+            controller:function ($scope) {
+                $scope.boxs = [];//装载着整组的作用域
+                this.collect = function (s) {
+                    $scope.boxs.push(s);
+                };
+                this.tell = function (s) { //当前点击的作用域
+                    $scope.boxs.forEach(function (item) {
+                        if(item!=s){ //说明是其他作用域
+                            item.flag = false;
+                        }
+                    })
+                }
+            },
+            scope:{}
+        }
+    });
+    app.directive('open',function () {
+        //link(scope) => controller($scope) => scope:{}
+        return {
+            require:'^team',
+            template:`
+                <div class="title" ng-click="toggle()">{{title}}</div>
+                <div class="content" ng-show="flag" ng-transclude></div>
+            `,
+            link:function ($scope,element,attrs,teamCtrl) {
+                $scope.flag = false;
+                $scope.toggle=function () { //点击字节切换，告诉父亲当前点击的是谁
+                    $scope.flag =!$scope.flag;
+                    teamCtrl.tell($scope);
+                };
+                teamCtrl.collect($scope); //调用的是父级控制器的方法
+            },
+            transclude:true,
+            scope:{
+                title:'@title'
+            }
+        }
+    })
+</script>
+<style>
+     open{float: left;margin-right: 30px}
+    .title{width: 150px;height: 30px;line-height: 30px;background: red;}
+    .content{width: 150px;height: 150px;background: green;}
+    .clearfix{overflow: hidden;clear: both}
+</style>
+</body>
+</html>

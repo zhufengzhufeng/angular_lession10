@@ -33,13 +33,12 @@
     app.directive('team',function () {
         return {
             controller:function ($scope) {
-                var arr = [];
+                $scope.arr = []; //如果不是独立作用域，$scope = $rootScope
                 this.collect = function (s) {
-                    arr.push(s);
-                    console.log(arr);
+                    $scope.arr.push(s);
                 }
             },
-            scope:{}
+            scope:{} //为了产生两个完全无关的作用域
         }
     });
     app.directive('open',function () {
@@ -50,7 +49,7 @@
                 <div class="content" ng-show="flag" ng-transclude></div>
             `,
             link:function (scope,ele,attrs,teamCtrl) { //视图和作用域的
-                teamCtrl.collect(scope)
+                teamCtrl.collect(scope);//一进入就把作用域交给父亲管理
             },
             transclude:true,
             scope:{
