@@ -1,0 +1,20 @@
+{
+  "name": "third",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "zhufengzhufeng <894918097@qq.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/zhufengzhufeng/angular_lession10",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}
