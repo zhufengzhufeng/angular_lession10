@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .show{display:block}
+        .hide{display: none}
+    </style>
+</head>
+<body ng-controller="myCtrl">
+<div ng-click="flag=!flag">{{!flag?"显示":"隐藏"}}</div>
+<!--angular为了简单的切换提供一个方法 ng-show/ng-hide 只针对显示和隐藏-->
+<div ng-hide="flag">这是内容区域，点后不停的切换</div>
+<!--ng-hide ng-show只是对dom元素的显示或者隐藏 单纯css-->
+<div ng-if="flag">这是if块</div>
+<!--操作的是html结构。如果为false则会移除dom元素 ng-if会产生作用域，保存删除掉的内容，如果过一会再出现，则需要把保存的内容在放入进去-->
+
+<!--用ng-if和ng-show用到什么场合？-->
+<!--
+    1.频繁显示或隐藏则show/hide好
+    2.一出生就定来的（数据），不会再发生变化则用if
+-->
+<ul ng-if="arr.length">
+    <li data-ng-repeat="a in arr">{{a}}</li>
+</ul>
+<!--
+    ng-show不会导致内部指令执行终端
+    ng-if 如果为false内部指令不再执行 (ng-if+ng-repeat);
+-->
+<!--<div class="{{flag?'show':'hide'}}">这是内容区域，点后不停的切换</div>-->
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.arr = [];
+    });
+</script>
+</body>
+</html>
