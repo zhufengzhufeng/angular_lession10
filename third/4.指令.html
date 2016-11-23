@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<girl-my love-cry love-money>xxx</girl-my>
+<script src="./public/js/angular/angular.js"></script>
+<script>
+    //1.指令的单独使用
+    //2.指令和控制器的交互
+    //3.指令和指令的交互
+    var app = angular.module('appModule',[]);
+    app.directive('girlMy',function () {
+        //点击girl标签 弹出girl的品质
+        //在link函数中给girl添加绑定事件
+        return {
+            link:function (scope,ele,attrs) {
+                ele.on('click',function () {
+                    alert(scope.arr);
+                });
+            },
+            controller:function ($scope) {//就是当前指令的控制器
+                //知道他有爱钱的品质需要存储下来
+                $scope.arr = [];
+                this.save = function (kind) {
+                    $scope.arr.push(kind);
+                }
+            }
+        }
+    });
+    app.directive('loveCry',function () {
+       return {
+           require:'girlMy', //指令的名字
+           link:function (scope,element,attrs,girlCtrl) {
+               girlCtrl.save('loveCry');
+           }
+       }
+    });
+    app.directive('loveMoney',function () {
+        //他是要默认依赖于girl的
+        return {
+            require:'girlMy',
+            //如果依赖于一个指令，就会把依赖的这个指令的控制器，实例化后当成第四个参数
+            link:function (scope,ele,attrs,girlCtrl) {
+                //子指令需要把loveMoney传递给父指令
+                girlCtrl.save('loveMoney');
+            }
+        }
+    });
+</script>
+</body>
+</html>

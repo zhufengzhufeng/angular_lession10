@@ -39,7 +39,22 @@ bower install angular --save/--save-dev
 ## 重新制定文件夹
 - 第一步初始化一个.bowerrc的文件，在里面指定安装路径即可
 
-
+## idoc的使用
+```
+npm install fandoc -g
+```
+- 初始化
+```
+fandoc init
+```
+- 把markdown编译成html
+```
+fandoc build
+```
+- 启动服务
+```
+fandoc server
+```
 
 
 
