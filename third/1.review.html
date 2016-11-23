@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body data-ng-controller="myCtrl">
+<input type="text" ng-model="name">
+<my-text name="{{name}}"></my-text>
+<script src="../node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',['$scope',function ($scope) {
+        $scope.name = '123';
+    }]);
+    //指令默认是不会拥有作用域的
+    app.directive('myText',function () {
+        return {
+            restrict:'E',
+            template:'<div>{{name}}</div><input type="text" ng-model="name">',
+            link:function () {},
+            scope:{
+                name:'@'
+            }
+            //1.没有作用域
+            //2.封闭式无法取到外界作用域上的值
+            //3.既有作用域而且不封闭
+            //一般采用完全断绝，让用户自己传入，只能通过属性进行传递
+            //scope:{} //封闭式指令 1.产生一个作用域 2.不会继承父级的属性
+            //scope:true //不完全断绝关系
+        }
+    });
+</script>
+</body>
+</html>
