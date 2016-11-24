@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-controller="ctrl">
+<pre>
+商品的名字 {{product.name}}
+购买的数量<input type="text" ng-model="product.count" ng-change="changeCount()">
+商品的价格{{product.price}}
+商品的邮费{{product.post}}
+商品的总价{{product.price*product.count+product.post}}
+是否包邮{{flag?"是":"否"}}
+</pre>
+<script src="lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('ctrl',function ($scope) {
+        //1.要求监听的内容必须是模型的字符串
+        //2.会提供新值和旧值
+        $scope.flag = false;
+        //选择ng-change  $watch
+        $scope.$watch('product.post',function (newVal) {
+            $scope.flag =newVal == 0?true:false;
+        });
+        $scope.changeCount = function () {
+            $scope.product.post = $scope.product.count*$scope.product.price>=100?0:10;
+        };
+        $scope.product = {
+            name:'飞机',
+            price:20,
+            post:10,
+            count:1
+        }
+    });
+</script>
+</body>
+</html>

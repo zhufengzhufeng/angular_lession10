@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+{{money}}
+{{arr}}
+{{desc}}
+{{"abcdefghijk" | captialize:3:5}}
+{{123 | myCurrency :'@' }}
+<script src="lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //angular自定义过滤器,不要改变原有的过滤器
+    //模拟一个myCurrency方法
+    app.filter('captialize', function () {
+        return function (input,param1,param2) {
+            return input.slice(0,param1)+input.slice(param1,param2).toUpperCase()+input.slice(param2);
+        };
+    });
+    app.filter('myCurrency',function () {
+        return function (input,parm) {
+            if(!isNaN(input)){
+                throw Error('not a number');
+            }
+            if(typeof parm=='undefined'){
+                return '$'+input;
+            }
+            return parm+input;
+        }
+    });
+    //在控制器中使用过滤器,在原有的过滤器后面增加Filter  currency:'&'
+    //filter:{name:"1"}
+
+
+    app.controller('myCtrl',function ($scope,currencyFilter,filterFilter,orderByFilter,jsonFilter,limitToFilter,numberFilter) {
+        $scope.a = '123';
+        $scope.desc = orderByFilter([2,8,10,100,7,3],false);
+        $scope.arr = filterFilter([{name:1},{name:11},{name:2}],{name:1});
+        $scope.money =currencyFilter($scope.a,'&');
+    });
+</script>
+</body>
+</html>

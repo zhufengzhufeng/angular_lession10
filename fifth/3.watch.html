@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+{{age}}
+<input type="text" ng-model="name" ng-change="changeName()">
+<button ng-click="changeName()"></button>
+<script src="./lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        //要实时监听age的变化 ,模型的名字
+        //脏值检查，每个数据会保存上一个状态，如果有变化，用新的状态，来和旧比，有变化刷新视图
+        //$watch和ng-change的区别 ng-change只能用于事件类型 watch是监控数据的
+        //满百包邮
+        $scope.$watch('age',function (newVal,oldVal) {
+           console.log(newVal,oldVal);
+            console.log($scope);
+        });
+        var index = 1;
+        $scope.changeName = function () {
+            $scope.age=index++;
+        };
+    });
+</script>
+</body>
+</html>
