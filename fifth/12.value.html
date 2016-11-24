@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div ng-controller="myCtrl1"></div>
+<div ng-controller="myCtrl2"></div>
+<script src="lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.value('calc',{
+        "+":(a,b)=>a+b,
+        "-":(a,b)=>a-b
+    }); //将传入的内容包一层函数，传给factory
+   /*app.factory('calc',function () {
+        return {
+           "+":(a,b)=>a+b,
+           "-":(a,b)=>a-b
+        }
+    });*/
+
+
+    app.controller('myCtrl1',function ($timeout,calc) {
+        console.log(calc["+"](1,2));
+    });
+    app.controller('myCtrl2',function ($timeout,calc) {
+        console.log(calc["+"](3,4));
+    });
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
  return a+b;
  };*/
 // const a =(a,b)=>{return a+b};
-const a = (a, b)=>{
+let a = (a, b)=>{
     let q = (a+b)*3;
     return q;
 };
@@ -17,5 +17,25 @@ var obj = {
     }
 };
 obj.b();
+
+
+function A() {
+    this["+"]=(a,b)=>a+b;
+    this["-"]=(a,b)=>a-b;
+}
+a = new A();
+console.log(a);
+
+
+
+function A() {
+    this.a = 1;
+    this.b = 2;
+}
+var obj = {};
+A.call(obj);
+console.log('hello',obj);
+
+
 
 
