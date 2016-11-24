@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+</head>
+<body ng-controller="myCtrl">
+<!--限制ng-model的数据变化速度 延迟 失去焦点-->
+<!--debounce:2000数据变化需要延迟两秒-->
+<!--<input type="text" ng-model="query" ng-model-options="{debounce:500}">-->
+<input type="text" ng-model="query" ng-model-options="{updateOn:'blur'}">
+<table class="table table-bordered">
+    <tr>
+        <th>学生姓名</th>
+        <th>数学成绩</th>
+        <th>语文成绩</th>
+        <th>英语成绩</th>
+    </tr>
+    <!--只根据数学成绩来过滤数据,指定过滤字段 多项是并的关系 不是|的关系-->
+    <tr ng-repeat="arr in students | filter:{math:query,chinese:query} track by $index">
+        <td>{{arr.name}}</td>
+        <td>{{arr.math}}</td>
+        <td>{{arr.chinese}}</td>
+        <td>{{arr.english}}</td>
+    </tr>
+</table>
+<script src="lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        //做一个学生信息的表格，可以快速搜素成绩，可以对学生成绩进行排序
+        $scope.students=[
+            {name:'张三',math:16,chinese:99,english:30},
+            {name:'李四',math:66,chinese:106,english:1},
+            {name:'王五',math:77,chinese:99,english:2},
+            {name:'赵六',math:33,chinese:66,english:3},
+        ]
+    });
+</script>
+</body>
+</html>

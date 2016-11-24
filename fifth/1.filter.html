@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+<!--管道符 过滤器的好处，不改变源数据，展现数据时改变成我们想要的效果-->
+{{val | number:1}}
+{{val}}
+<!--大小写过滤器-->
+{{'abcdefghasdad' | uppercase}}
+{{'aMdeAfgEhaQad' | lowercase}}
+<!--货币过滤器-->
+{{100 | currency:'￥'}}
+<!--json过滤器-->
+<!--pre固定格式标签-->
+<pre>{{obj | json:4}}</pre>
+<!--时间过滤器 new Date().getTime()-->
+{{timer | date:'yy年MM-dd日 hh:mm:ss'}}
+<!--限制位数过滤器-->
+{{"你好我是xxx,long long ago" | limitTo:8}}
+<script src="lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //过滤器也不依赖于控制器（过滤数据）
+    app.controller('myCtrl',function ($scope,$interval) {
+        //数字过滤器
+        $interval(function () {
+            $scope.timer = new Date();
+        },1000);
+        $scope.obj = {"name":'zfpx',age:8,address:["北京","xxx"]}
+        $scope.val = "12345676.123";
+    });
+</script>
+</body>
+</html>
