@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<!--
+    1.服务是一个单例的
+    2.服务可以共享
+-->
+<div ng-controller="myCtrl1"></div>
+<div ng-controller="myCtrl2"></div>
+<script src="lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //声明服务 五种服务(provider,"factory",service,value,constant) 一种装饰
+    app.config(function (calcProvider) { //calcProvider就是服务calc后面的函数的实例
+        calcProvider.currency = 'RMB';
+    });
+    app.provider('calc',function () { //最大的服务，可以进行配置(服务中唯一一个可以配置的)
+        this.currency = '$'; //这里的this是上级构造函数的实例
+        this.$get = function () { //当注入后就会调用$get方法
+            return { //公有的方法
+                "+":(a,b)=>this.currency+(a+b),//这里的this是当前调用方法的所属者
+                "-":(a,b)=>this.currency+(a-b) //箭头函数中是没有this指向的
+            }
+        }
+    });
+    //当我们创建这个provider默认就会被实例化一下,当注入calc后会默认调用$get方法，并且将返回的对象赋予给calc
+    //封装一个+ - * /的方法
+    app.controller('myCtrl1',function ($timeout,calc) {
+        console.log(calc["+"](1,2));
+        //$timeout是一个实例 有且只有一个
+        //1.服务就是将公有的逻辑抽取出去
+    });
+    app.controller('myCtrl2',function ($timeout,calc) {
+        console.log(calc["+"](3,4));
+    });
+</script>
+</body>
+</html>
