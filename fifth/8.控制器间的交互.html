@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="myCtrl1">
+    总价<input type="text" ng-model="total">
+    <div ng-controller="myCtrl2">
+        数量 <input type="text" ng-model="count" ng-change="changeCount()">
+        单价 20
+    </div>
+</div>
+<script src="lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //在一个方法中统一设置rootScope共有的内容
+    app.controller('myCtrl1',function ($scope) {
+        $scope.total = 100;
+        $scope.$on('我要改数量了',function (e,data) {
+            //data为我们传递过来的数据
+            $scope.total = data;
+        });
+        $scope.$watch('total',function (newVal) {
+            $scope.$broadcast('我改了总价',newVal);
+        });
+    });
+    app.controller('myCtrl2',function ($scope) {
+        $scope.count = 5;
+        $scope.changeCount = function () {
+            $scope.$emit('我要改数量了',$scope.count*20);
+        };
+        $scope.$on('我改了总价',function (e,data) {
+            $scope.count = data/20;
+        });
+    });
+    //污染全局变量
+    //通过事件的方式传递数据  $emit 向上发射(上级知道自己也知道) $on 监听 $broadcast 向下广播(领导要知道，下属都会知道)
+    app.run(['$rootScope',function ($rootScope) {
+        $rootScope.sum = function () {
+            return 3;
+        }
+    }]);
+</script>
+</body>
+</html>
