@@ -22,7 +22,7 @@
         $scope.flag = false;
         //选择ng-change  $watch
         $scope.$watch('product.post',function (newVal) {
-            $scope.flag =newVal == 0?true:false;
+            $scope.flag = newVal == 0?true:false;
         });
         $scope.changeCount = function () {
             $scope.product.post = $scope.product.count*$scope.product.price>=100?0:10;

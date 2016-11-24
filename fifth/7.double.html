@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="myCtrl">
+<!--
+    1.ng-model是不会产生作用域的
+    2.时刻获取作用域的变量，如果有内容将内容绑定到input上  (数据改变影响视图)
+    3.获取input的值，放到作用域上  (视图发生改变后，会影响到作用域上的值)
+-->
+<input type="text" zf-model="age">
+{{age}}
+<script src="lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('zfModel',function () {
+        return {
+            link:function (scope,element,attrs) {
+                //要不停的监控name的变化
+                //console.log(attrs["zfModel"]);
+                scope.$watch(attrs["zfModel"],function (newVal,oldVal) {
+                    element.val(newVal);
+                });
+                //监听输入的变化，如果有变化会执行input事件
+                element.on('input',function () {
+                    scope[attrs["zfModel"]] = element.val();
+                    scope.$apply();
+                    //要手动的通知视图的刷新
+                });
+            }
+        }
+    });
+    app.controller('myCtrl',function ($scope,$interval) {
+        $scope.age = 1;
+        $interval(function () {
+            $scope.age++;
+        },5000);
+    });
+</script>
+</body>
+</html>

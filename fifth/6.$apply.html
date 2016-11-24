@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-controller="ctrl">
+<button ng-click="fn()"></button>
+{{name}}
+<script src="lib/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('ctrl',function ($scope,$interval,$timeout) {
+        $scope.name = 1;
+        //ng-click
+        $scope.fn = function () {
+            $scope.name = 100;
+        };//angular自带的所有方法，或者自带的服务,都可以自行的通知视图
+        var timer = $interval(function () {
+            $scope.name++; //这里只改变了数据，但是没有通知视图改变
+            //$scope.$apply();//如果自带的指令已经进行通知了就不需要再调用apply方法了
+        },1000);
+        $timeout(function () {
+            $interval.cancel(timer);//取消定时器
+        },5000);
+        //$watch 监控视图模型的变化，如果数据发送变化会调用watch的回调函数
+        //$apply 如果是自己的方法，将数据改变，调用apply让视图强制刷新
+        //ng-model
+    });
+</script>
+</body>
+</html>

@@ -37,7 +37,7 @@
 
     app.controller('myCtrl',function ($scope,currencyFilter,filterFilter,orderByFilter,jsonFilter,limitToFilter,numberFilter) {
         $scope.a = '123';
-        $scope.desc = orderByFilter([2,8,10,100,7,3],false);
+        $scope.desc = orderByFilter([2,8,10,100,7,3],null,false);
         $scope.arr = filterFilter([{name:1},{name:11},{name:2}],{name:1});
         $scope.money =currencyFilter($scope.a,'&');
     });
