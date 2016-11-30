@@ -9,6 +9,17 @@ var server = http.createServer(function (req,res) {
     if(pathname =='/'){
         res.setHeader('Content-Type','text/html;charset=utf8');
         fs.createReadStream('./index.html').pipe(res);
+    }else if(pathname == '/getUser'){
+        res.end(JSON.stringify([1,2,3]));
+    }else if(pathname =='/addUser'){
+        var str = '';
+        req.on('data',function (data) {
+            str+=data;
+        });
+        req.on('end',function () {
+            console.log(JSON.parse(str));
+            res.end('ok');
+        })
     }else{
         fs.exists('.'+pathname,function (exists) {
             if(exists){
@@ -21,4 +32,4 @@ var server = http.createServer(function (req,res) {
         });
     }
 });
-server.listen(3000);
+server.listen(80);
