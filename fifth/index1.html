@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="myCtrl">
+<script src="bower_components/angular/angular.js"></script>
+<!--通过方法和传入的参数执行不同的操作逻辑-->
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script>
+    var app = angular.module('appModule',['ngResource']);
+    //angular-resource没有提供修改的方法
+    //声明一个服务用来保存所有的增删改查
+    //  /users/1
+    app.factory('user',function ($resource) {
+        console.log($resource);
+       /* console.dir($resource('/users/:id/',null,{ update:{ method:'PUT'}}));*/
+        // id可以传递也可以不传
+        return $resource('/users/:id',null,{
+            update:{ method:'PUT'} //新增的修改方法
+        });//get query save delete update
+    });
+    app.controller('myCtrl',function ($scope,user) {
+        user.get({id:1}); //get
+        user.query();
+        user.save({name:1,password:1});
+        user.update({id:1},{name:2});
+        user.delete({id:1});
+        // GET PUT DELETE POST   restFul风格
+        //                       返回值
+        //get表示获取一个         类型对象
+        //query 表示获取一组数据  类型是数组
+        //save 表示保存一组数据   保存的那一项
+        //delete 删除一个或多个   删除返回空对象
+        //update表示修改         修改后的那一项
+    })
+</script>
+</body>
+</html>
