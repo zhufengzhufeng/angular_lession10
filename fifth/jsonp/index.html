@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function getData(data) {
+        console.log(data);
+    }
+    var oScript = document.createElement('script');
+    //告诉服务器端调用的方法是getDate
+    oScript.src = 'http://localhost:80/getUser?callback=getData';
+    document.body.appendChild(oScript);
+</script>
+</body>
+</html>
