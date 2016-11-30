@@ -26,7 +26,24 @@ var server = http.createServer(function (req,res) {
                 }
                 break;
             case 'PUT':
-
+                if(id){ //查询单个
+                    id = id.slice(1);
+                    var str = '';
+                    req.on('data',function (data) {
+                        str+=data;
+                    });
+                    req.on('end',function () {
+                        var user = JSON.parse(str);
+                        //find filter forEach map
+                        users = users.map(function (item) {
+                            if(item.id == id){ //找到对应的id 改成我们想要的数据
+                                return user;
+                            }
+                            return item; //不更改就正常的返回
+                        });
+                        res.end(JSON.stringify(user));
+                    });
+                }
                 break;
             case 'POST':
 

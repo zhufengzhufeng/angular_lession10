@@ -35,7 +35,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" ng-click="submit()" >保存</button>
             </div>
         </div>
     </div>
@@ -68,10 +68,24 @@
                 });
             });
             //后台删除一次 后台删除后再删除前台的
-        }
+        };
         $scope.modify = function (u) {
             //复制对象 {name:张三,age:20,id:1,gender:0}
             $scope.updateUser = JSON.parse(JSON.stringify(u));
+        }
+        //修改功能
+        $scope.submit = function () {
+            //把所指定的id改成指定的内容
+            user.update({uid:$scope.updateUser.id},$scope.updateUser).$promise.then(function () {
+                $scope.users = $scope.users.map(function (item) {
+                    if(item.id ==$scope.updateUser.id ){
+                        return $scope.updateUser
+                    }
+                    return item;
+                });
+                //关闭模态框
+                $('#myModal').modal('toggle');
+            });
         }
     }]);
 </script>
