@@ -11,11 +11,11 @@
         姓名{{user.name}}
         年龄{{user.age}}
         性别
-        {{user.gender?'男':'女'}}
-        <button class="btn-danger btn pull-right btn-xs">删除</button>
+        {{user.gender=='1'?'男':'女'}}
+        <button class="btn-danger btn pull-right btn-xs" ng-click="remove(user.id)">删除</button>
         <button class="btn btn-warning pull-right  btn-xs">修改</button>
-       <!-- <input type="radio" ng-model="user.gender" ng-value="user.gender" ng-checked="user.gender">男
-        <input type="radio" ng-model="user.gender" ng-value="user.gender" ng-checked="user.gender">女-->
+        <input type="radio" ng-model="user.gender" value="1">男
+        <input type="radio" ng-model="user.gender" value="0">女
     </li>
 </ul>
 <script src="bower_components/angular/angular.js"></script>
@@ -31,6 +31,15 @@
     app.controller('myCtrl',['$scope','user',function ($scope,user) {
         //查询所用用户列表
         $scope.users = user.query(); //返回的是一个promise对象
+        $scope.remove = function (id) {
+            //当调用删除后再执行的方法
+            user.delete({uid:id}).$promise.then(function () {
+                $scope.users = $scope.users.filter(function (item) {
+                    return item.id != id;
+                });
+            });
+            //后台删除一次 后台删除后再删除前台的
+        }
     }]);
 </script>
 </body>

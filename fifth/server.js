@@ -3,8 +3,8 @@ var url = require('url');
 var fs = require('fs');
 var mime = require('mime');
 var users = [
-    {name:'张三',age:20,id:1,gender:true},
-    {name:'李四',age:33,id:2,gender:false}
+    {name:'张三',age:20,id:1,gender:'0'},
+    {name:'李四',age:33,id:2,gender:'1'}
 ];
 var querystring = require('querystring');
 var server = http.createServer(function (req,res) {
@@ -30,6 +30,13 @@ var server = http.createServer(function (req,res) {
             case 'POST':
                 break;
             case 'DELETE':
+                if(id){
+                    id = id.slice(1); //拿到对应的id号
+                    users = users.filter(function (item) {
+                        return item.id != id;
+                    });
+                    res.end(JSON.stringify({}));
+                }
                 break;
         }
     }else{
