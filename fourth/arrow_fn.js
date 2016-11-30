@@ -2,6 +2,7 @@
  return a+b;
  };*/
 // const a =(a,b)=>{return a+b};
+/*
 let a = (a, b)=>{
     let q = (a+b)*3;
     return q;
@@ -26,15 +27,15 @@ function A() {
 a = new A();
 console.log(a);
 
+*/
 
 
 function A() {
     this.a = 1;
     this.b = 2;
+    return this;
 }
-var obj = {};
-A.call(obj);
-console.log('hello',obj);
+console.log(A.call(A.prototype));
 
 
 
