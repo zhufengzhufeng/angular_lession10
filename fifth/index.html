@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 </head>
-<body ng-controller="myCtrl">
+<body ng-controller="myCtrl" class="container">
 <ul class="list-group">
     <li class="list-group-item clearfix" ng-repeat="user in users track by $index">
         姓名{{user.name}}
@@ -20,8 +20,6 @@
         <input type="radio" ng-model="user.gender" value="0">女
     </li>
 </ul>
-
-
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -40,6 +38,35 @@
         </div>
     </div>
 </div>
+
+<!--增加用户-->
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="name" class="control-label col-md-3">用户姓名</label>
+        <div class="col-md-9">
+            <input type="text" id="name" class="form-control" placeholder="请输入用户姓名" ng-model="u.name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="age" class="control-label col-md-3">年龄</label>
+        <div class="col-md-9">
+            <input type="text" id="age" class="form-control" placeholder="年龄" ng-model="u.age">
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="control-label col-md-3">性别</label>
+        <div class="col-md-9">
+            男 <input type="radio" value="1" ng-model="u.gender" ng-checked="true">
+            女 <input type="radio" value="0" ng-model="u.gender">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-9">
+            <button class="btn btn-danger" ng-click="saveUser()">增加</button>
+        </div>
+    </div>
+</form>
+
 
 
 
@@ -87,7 +114,17 @@
                 $('#myModal').modal('toggle');
             });
         }
+        //增加用户
+        $scope.saveUser = function () {
+            //处理默认性别
+            $scope.u.gender = $scope.u.gender?$scope.u.gender:'1';
+            //$scope.u要保存的数据
+            user.save($scope.u).$promise.then(function (data) {
+                $scope.users.push(data);
+            });
+        }
     }]);
+
 </script>
 </body>
 </html>

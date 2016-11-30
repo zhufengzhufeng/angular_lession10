@@ -4,10 +4,11 @@ var fs = require('fs');
 var mime = require('mime');
 var users = [
     {name:'张三',age:20,id:1,gender:'0'},
-    {name:'李四',age:33,id:2,gender:'1'}
+    {name:'李四',age:33,id:2,gender:'1'},
 ];
 var querystring = require('querystring');
 var server = http.createServer(function (req,res) {
+    console.log(users);
     var urlObj = url.parse(req.url,true);
     var pathname = urlObj.pathname;
     if(pathname =='/'){
@@ -46,7 +47,20 @@ var server = http.createServer(function (req,res) {
                 }
                 break;
             case 'POST':
-
+                var str = '';
+                req.on('data',function (data) {
+                    str+=data;
+                })
+                req.on('end',function () {
+                   var user  =  JSON.parse(str);//{name:'123',age:20,gender:1}
+                    //取出数组最大id +1作为唯一的id值
+                   users.sort(function (a,b) {
+                       return a.id - b.id;
+                   });
+                   user.id = (parseInt(users[users.length-1].id)+1).toString();
+                   users.push(user);
+                   res.end(JSON.stringify(user));
+                });
                 break;
             case 'DELETE':
                 if(id){
