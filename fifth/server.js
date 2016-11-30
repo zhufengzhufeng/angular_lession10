@@ -26,8 +26,10 @@ var server = http.createServer(function (req,res) {
                 }
                 break;
             case 'PUT':
+
                 break;
             case 'POST':
+
                 break;
             case 'DELETE':
                 if(id){
